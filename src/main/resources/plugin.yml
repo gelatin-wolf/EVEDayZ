@@ -1,0 +1,6 @@
+name: DayZ
+main: io.github.geletinwolf.Main
+version: 1.01
+commands:
+  get:
+    description: get 아이템이름

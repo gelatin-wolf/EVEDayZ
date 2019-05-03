@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'io.github.geletinwolf'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+
+    }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
+    // The Spigot API with no shadowing. Requires the OSS repo.
+    compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT' // The Bukkit API with no shadowing.
+    compileOnly 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
+    // The full Spigot server with no shadowing. Requires mavenLocal.
+    compileOnly 'org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT'
+// The full CraftBukkit server with no shadowing. Requires mavenLocal.
+}
