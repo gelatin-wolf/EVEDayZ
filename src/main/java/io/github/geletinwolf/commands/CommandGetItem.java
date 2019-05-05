@@ -1,9 +1,9 @@
 package io.github.geletinwolf.commands;
 
 import io.github.geletinwolf.Main;
-import io.github.geletinwolf.items.ItemBandage;
 import io.github.geletinwolf.items.ItemBase;
-import io.github.geletinwolf.items.ItemPainkiller;
+import io.github.geletinwolf.player.EVEPlayer;
+import io.github.geletinwolf.player.effects.EffectType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 
 public class CommandGetItem implements CommandExecutor {
 
@@ -34,6 +33,11 @@ public class CommandGetItem implements CommandExecutor {
                     }
                     return true;
                 }
+            }
+            if(strings[0].equalsIgnoreCase("bleed")) {
+                EVEPlayer ep = new EVEPlayer(p);
+                ep.getPlayer().getPlayer().sendMessage("BLEED");
+                ep.giveBuff(EffectType.BLEEDING, 10000);
             }
         }
         return false;

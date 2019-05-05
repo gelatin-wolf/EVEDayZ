@@ -1,6 +1,5 @@
 package io.github.geletinwolf.player;
 
-import io.github.geletinwolf.player.effects.EffectBleeding;
 import io.github.geletinwolf.player.effects.EffectType;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -16,13 +15,23 @@ public class EVEPlayer {
 		this.player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 	}
 
+	public EVEPlayer(UUID uuid) { this.player = Bukkit.getOfflinePlayer(uuid); }
+
 	public EVEPlayer(OfflinePlayer p) {
 		this.player = p;
 	}
 
-	public void giveBuff(EffectType type, int duration) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-		Object o = type.getTarget().getDeclaredConstructor().newInstance();
-		((EffectBleeding) o).Do(player, duration);
+	public OfflinePlayer getPlayer() {
+		return player;
+	}
+
+	public void giveBuff(EffectType type, int duration) {
+		try {
+			Object o = type.getTarget().getDeclaredConstructor().newInstance();
+			type.getTarget().getMethod("Do", OfflinePlayer.class, int.class).invoke(o, player, duration);
+		} catch ( NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

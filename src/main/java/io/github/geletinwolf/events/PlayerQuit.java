@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.UUID;
+
 public class PlayerQuit {
 
 	Main plugin;
@@ -19,12 +21,12 @@ public class PlayerQuit {
 
 	public void Do(PlayerQuitEvent event) {
 		OfflinePlayer p = Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId());
-		if(EffectBase.repeatingTasks.keySet().contains(p)) {
-			stopEffectTasks(p);
+		if(EffectBase.repeatingTasks.keySet().contains(p.getUniqueId())) {
+			stopEffectTasks(p.getUniqueId());
 		}
 	}
 
-	private void stopEffectTasks(OfflinePlayer p) {
+	private void stopEffectTasks(UUID p) {
 		for(EffectType type : EffectBase.repeatingTasks.get(p).keySet()) {
 			Main.getScheduler().cancelTask(EffectBase.repeatingTasks.get(p).get(type));
 			EffectBase.repeatingTasks.get(p).put(type, -1);

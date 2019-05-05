@@ -16,25 +16,25 @@ public class ItemAdrenaline extends ItemBase{
     }
 
     @Override
+    public short getDurability() {
+        return 0;
+    }
+
+    @Override
     public String getName() {
         return "아드레날린";
     }
 
     @Override
     public List<String> getDescription() {
-        return Arrays.asList(new String[]{
-                "우 클릭 시 최대 체력 HP50이 증가합니다.", "아드레날린을 연속으로 사용할 시 죽을 수도 있습니다."
-        });
+        return Arrays.asList("우 클릭 시 최대 체력 HP50이 증가합니다.", "아드레날린을 연속으로 사용할 시 죽을 수도 있습니다.");
     }
 
     @Override
     public Runnable getFunctionality(PlayerInteractEvent event) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                Player eun = event.getPlayer();
-                eun.sendMessage("아드레날린을 사용하셨습니다.");
-            }
+        return () -> {
+            Player eun = event.getPlayer();
+            eun.sendMessage("아드레날린을 사용하셨습니다.");
         };
     }
 }

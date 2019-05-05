@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
 public class PlayerJoin {
 
@@ -22,19 +22,16 @@ public class PlayerJoin {
 
 	public void Do(PlayerJoinEvent event) {
 		OfflinePlayer p = Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId());
-		if(EffectBase.disabledPlayers.contains(p)) {
-			runEffectTasks(p);
+		if(EffectBase.disabledPlayers.contains(p.getUniqueId())) {
+			EffectBase.disabledPlayers.remove(p.getUniqueId());
+			runEffectTasks(p.getUniqueId());
 		}
 	}
 
-	private void runEffectTasks(OfflinePlayer p) {
-		try {
+	private void runEffectTasks(UUID p) {
 		for(EffectType type : EffectBase.leftTimes.get(p).keySet()) {
 			EVEPlayer ep = new EVEPlayer(p);
 			ep.giveBuff(type, EffectBase.leftTimes.get(p).get(type));
-		}
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-			e.printStackTrace();
 		}
 	}
 

@@ -2,12 +2,14 @@ package io.github.geletinwolf.player.effects;
 
 public enum EffectType {
 
-	BLEEDING(EffectBleeding.class, 2000.0D);
+	BLEEDING("BLEEDING", EffectBleeding.class, 2000.0D);
 
+	String name;
 	Class<EffectBleeding> target;
 	Double repeatTime;
 
-	EffectType(Class<EffectBleeding> type, Double repeatTime) {
+	EffectType(String name, Class<EffectBleeding> type, Double repeatTime) {
+		this.name = name;
 		this.target = type;
 		this.repeatTime = repeatTime;
 	}
@@ -18,5 +20,9 @@ public enum EffectType {
 
 	public Double getRepeatTime() {
 		return repeatTime;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

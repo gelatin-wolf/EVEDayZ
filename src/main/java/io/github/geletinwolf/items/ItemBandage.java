@@ -14,25 +14,25 @@ public class ItemBandage extends ItemBase{
     }
 
     @Override
+    public short getDurability() {
+        return 0;
+    }
+
+    @Override
     public String getName() {
         return "붕대";
     }
 
     @Override
     public List<String> getDescription() {
-        return Arrays.asList(new String[]{
-                "우클릭을 하면 출혈이 멈춥니다."
-        });
+        return Arrays.asList("우클릭을 하면 출혈이 멈춥니다.");
     }
 
     @Override
     public Runnable getFunctionality(PlayerInteractEvent event) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                Player eun = event.getPlayer();
-                eun.sendMessage("출혈이 멈췄습니다.");
-            }
+        return () -> {
+            Player eun = event.getPlayer();
+            eun.sendMessage("출혈이 멈췄습니다.");
         };
     }
 }
